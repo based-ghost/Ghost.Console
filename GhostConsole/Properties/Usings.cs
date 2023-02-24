@@ -1,4 +1,5 @@
-﻿global using GhostConsole;
+﻿global using System.Text;
+global using GhostConsole;
 global using Spectre.Console;
 global using System.Text.Json;
 global using GhostConsole.Data;

@@ -1,17 +1,16 @@
 # `Ghost.Console`
+This is a [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0) console application built with [Spectre.Console](https://spectreconsole.net/) that demonstrates simple API communication via endpoints from [JSONPlaceholder](https://jsonplaceholder.typicode.com/).
+
 
 ![demo](./demo/GhostConsole.gif)
 
-## Description
-
-This is a [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0) console application built with [Spectre.Console](https://spectreconsole.net/) that demonstrates simple API communication via endpoints from [JSONPlaceholder](https://jsonplaceholder.typicode.com/).
 
 ## Tech stack
 
-- [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0), .NET 7 SDK.
-- [Spectre.Console](https://spectreconsole.net/), robust library to make beautiful console applications.
-- [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/), used to manage/bind configuration from `appsettings.json` to concrete types.
-- [xUnit.net](https://xunit.net/), handle unit testing for the console application project.
+- [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0) - .NET 7 SDK.
+- [Spectre.Console](https://spectreconsole.net/) - a robust library to make beautiful console applications.
+- [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) - manages/binds configuration from `appsettings.json` to concrete types.
+- [xUnit.net](https://xunit.net/) - handles unit testing for the console application project.
 
 ## Building & running locally
 

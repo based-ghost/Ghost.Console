@@ -11,16 +11,13 @@ public class PhotoServiceTests
 
     [Fact]
     public async Task CanGetAlbumPhotosAsync()
-    {
-        // Get last album in results to ensure Id > 0
+    { 
         var albums = await ConsoleHelper.PhotoService.GetAlbumsAsync();
-        var albumId = albums.LastOrDefault()?.Id;
-        var castAlbumId = albumId.GetValueOrDefault();
+        var album = albums.FirstOrDefault();
+        Assert.NotNull(album);
 
-        Assert.IsType<int>(albumId);
-        Assert.InRange(castAlbumId, 1, int.MaxValue);
-
-        var photos = await ConsoleHelper.PhotoService.GetAlbumPhotosAsync(castAlbumId.ToString());
+        var albumId = album!.Id.ToString();
+        var photos = await ConsoleHelper.PhotoService.GetAlbumPhotosAsync(albumId);
         AssertNotNullOrEmpty(photos);
     }
 

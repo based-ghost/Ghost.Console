@@ -1,4 +1,7 @@
-﻿// Init setup & info messages
+﻿// Set the console output encoding to UTF8 (needed to render Spectre.Console spinners)
+Console.OutputEncoding = Encoding.UTF8;
+
+// Init setup & info messages
 ConsoleHelper.WriteMainTitle();
 
 // Check console supports interaction & user confirmed continue
