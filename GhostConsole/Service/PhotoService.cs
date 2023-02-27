@@ -10,13 +10,13 @@ public class PhotoService : IPhotoService
     {
         const string relativeUri = "albums";
         var result = await _apiClient.GetAsync<IEnumerable<Album>>(relativeUri);
-        return result.EmptyIfNull();
+        return result.EmptyIfDefault();
     }
 
     public async Task<IEnumerable<IPhoto>> GetAlbumPhotosAsync(string albumId)
     {
         var relativeUri = $"photos?{nameof(albumId)}={albumId}";
         var result = await _apiClient.GetAsync<IEnumerable<Photo>>(relativeUri);
-        return result.EmptyIfNull();
+        return result.EmptyIfDefault();
     }
 }

@@ -4,6 +4,7 @@ public static class ConsoleHelper
 {
     public static IAppSettings  AppConfig    { get; } = InitAppConfig();
     public static IPhotoService PhotoService { get; } = InitPhotoService();
+
     public static bool EnvironmentIsVerified => IsConsoleInteractive() && AskConfirmation("Get album list?");
 
     public static void WriteMainTitle()

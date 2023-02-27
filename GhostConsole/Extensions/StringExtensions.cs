@@ -8,23 +8,15 @@ public static class StringExtensions
     /// <summary>
     /// Extracts only the numeric values from a string.
     /// </summary>
-    public static string ExtractDigits(this string? source)
-    {
-        return !string.IsNullOrWhiteSpace(source)
-            ? string.Concat(source.Where(char.IsNumber))
-            : string.Empty;
-    }
+    public static string ExtractDigits(this string source) => string.Concat(source.Where(char.IsNumber));
 
     /// <summary>
-    /// Truncates a string with an ellipses if length exceeds max limit.
+    /// Truncates a string with specified suffix if length exceeds max length.
     /// </summary>
-    public static string Truncate(this string? source, int maxChars)
+    public static string? Truncate(this string? source, int maxLength, string suffix = "..")
     {
-        if (string.IsNullOrEmpty(source))
-            return string.Empty;
-
-        return (source.Length > maxChars)
-            ? $"{source[..maxChars].TrimEnd()}.."
+        return source?.Length > maxLength
+            ? source[..(maxLength - suffix.Length)] + suffix
             : source;
     }
 }
