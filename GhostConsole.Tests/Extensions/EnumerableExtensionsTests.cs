@@ -3,6 +3,7 @@
 public class EnumerableExtensionsTests
 {
     #region IsNullOrEmpty
+
     [Theory]
     [InlineData(null)]
     [InlineData(new int[0])]
@@ -19,5 +20,6 @@ public class EnumerableExtensionsTests
         var result = source.IsNullOrEmpty();
         Assert.False(result);
     }
-    #endregion
+
+    #endregion IsNullOrEmpty
 }

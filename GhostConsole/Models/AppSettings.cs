@@ -8,6 +8,8 @@ public sealed class AppSettings : IAppSettings
 
 public sealed class NestedSettings : INestedSettings
 {
-    public required string Name    { get; set; } = null!;
-    public required string BaseUri { get; set; } = null!;
+    public required string Name      { get; set; } = null!;
+    public required string BaseUri   { get; set; } = null!;
+    public required string AlbumsUri { get; set; } = null!;
+    public required string PhotosUri { get; set; } = null!;
 }

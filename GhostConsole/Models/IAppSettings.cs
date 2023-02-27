@@ -8,6 +8,8 @@ public interface IAppSettings
 
 public interface INestedSettings
 {
-    public string Name    { get; set; }
-    public string BaseUri { get; set; }
+    public string Name      { get; set; }
+    public string BaseUri   { get; set; }
+    public string AlbumsUri { get; set; }
+    public string PhotosUri { get; set; }
 }

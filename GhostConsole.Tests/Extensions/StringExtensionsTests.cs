@@ -3,6 +3,7 @@
 public class StringExtensionsTests
 {
     #region ExtractDigits
+
     [Theory]
     [InlineData("Test Case 1", "1")]
     [InlineData("2nd Test Case", "2")]
@@ -25,9 +26,11 @@ public class StringExtensionsTests
         var actual = source.ExtractDigits();
         Assert.NotEqual(expected, actual);
     }
-    #endregion
+
+    #endregion ExtractDigits
 
     #region Truncate
+
     [Theory]
     [InlineData("Test Case 1", 3)]
     [InlineData("Test Case 2", 5)]
@@ -37,5 +40,6 @@ public class StringExtensionsTests
         var result = source.Truncate(maxChars);
         Assert.Equal(maxChars, result?.Length);
     }
-    #endregion
+
+    #endregion Truncate
 }

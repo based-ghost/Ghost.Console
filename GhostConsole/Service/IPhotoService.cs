@@ -2,6 +2,6 @@
 
 public interface IPhotoService
 {
-    public Task<IEnumerable<IAlbum>> GetAlbumsAsync();
-    public Task<IEnumerable<IPhoto>> GetAlbumPhotosAsync(string albumId);
+    public Task<IEnumerable<IPhoto>> GetAllAsync();
+    public Task<IEnumerable<IPhoto>> GetFromAlbumAsync(string albumId);
 }

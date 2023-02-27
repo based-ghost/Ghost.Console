@@ -3,6 +3,7 @@
 public static class ConsoleHelper
 {
     public static IAppSettings  AppConfig    { get; } = InitAppConfig();
+    public static IAlbumService AlbumService { get; } = InitAlbumService();
     public static IPhotoService PhotoService { get; } = InitPhotoService();
 
     public static bool EnvironmentIsVerified => IsConsoleInteractive() && AskConfirmation("Get album list?");
@@ -31,7 +32,7 @@ public static class ConsoleHelper
             {
                 // Delays added to let spinner animation play
                 await Task.Delay(3500);
-                return await PhotoService.GetAlbumsAsync();
+                return await AlbumService.GetAllAsync();
             });
 
         if (albums.IsNullOrEmpty())
@@ -60,7 +61,7 @@ public static class ConsoleHelper
                 // Delays added to let spinner animation play
                 await Task.Delay(3500);
                 var albumId = selectedAlbum.Split("-")[0].ExtractDigits();
-                return await PhotoService.GetAlbumPhotosAsync(albumId);
+                return await PhotoService.GetFromAlbumAsync(albumId);
             });
 
         if (photos.IsNullOrEmpty())
@@ -103,15 +104,15 @@ public static class ConsoleHelper
     {
         var isConfirmed = AnsiConsole.Confirm(message);
         if (!isConfirmed)
-            Write("Process terminated by user.", Color.Grey54);
+            WriteError("Process terminated by user.");
 
         return isConfirmed;
     }
 
-    private static IPhotoService InitPhotoService()
+    private static HttpClient BuildHttpClient(string uri)
     {
-        var apiClient = new ApiClient(AppConfig.Api.BaseUri);
-        return new PhotoService(apiClient);
+        var baseAddress = new Uri($"{AppConfig.Api.BaseUri}/{uri}");
+        return new HttpClient { BaseAddress = baseAddress };
     }
 
     private static IAppSettings InitAppConfig()
@@ -124,4 +125,7 @@ public static class ConsoleHelper
 
         return config ?? throw new NullReferenceException($"Could not bind appsettings.json to {nameof(AppSettings)}");
     }
+
+    private static IAlbumService InitAlbumService() => new AlbumService(BuildHttpClient(AppConfig.Api.AlbumsUri));
+    private static IPhotoService InitPhotoService() => new PhotoService(BuildHttpClient(AppConfig.Api.PhotosUri));
 }

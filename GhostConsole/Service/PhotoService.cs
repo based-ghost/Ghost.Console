@@ -1,22 +1,19 @@
 ﻿namespace GhostConsole.Service;
 
-public class PhotoService : IPhotoService
+public class PhotoService : BaseService, IPhotoService
 {
-    private readonly IApiClient _apiClient;
+    public PhotoService(HttpClient httpClient) : base(httpClient) { }
 
-    public PhotoService(IApiClient apiClient) => _apiClient = apiClient;
-
-    public async Task<IEnumerable<IAlbum>> GetAlbumsAsync()
+    public async Task<IEnumerable<IPhoto>> GetAllAsync()
     {
-        const string relativeUri = "albums";
-        var result = await _apiClient.GetAsync<IEnumerable<Album>>(relativeUri);
+        var result = await GetAsync<IEnumerable<Photo>>();
         return result.EmptyIfDefault();
     }
 
-    public async Task<IEnumerable<IPhoto>> GetAlbumPhotosAsync(string albumId)
+    public async Task<IEnumerable<IPhoto>> GetFromAlbumAsync(string albumId)
     {
-        var relativeUri = $"photos?{nameof(albumId)}={albumId}";
-        var result = await _apiClient.GetAsync<IEnumerable<Photo>>(relativeUri);
+        var uri = $"?{nameof(albumId)}={albumId}";
+        var result = await GetAsync<IEnumerable<Photo>>(uri);
         return result.EmptyIfDefault();
     }
 }

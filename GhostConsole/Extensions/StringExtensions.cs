@@ -16,7 +16,7 @@ public static class StringExtensions
     public static string? Truncate(this string? source, int maxLength, string suffix = "..")
     {
         return source?.Length > maxLength
-            ? source[..(maxLength - suffix.Length)] + suffix
+            ? source[..(maxLength - suffix.Length)].TrimEnd() + suffix
             : source;
     }
 }
