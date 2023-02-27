@@ -8,7 +8,7 @@ This is a [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0) console app
 ## Tech stack
 
 - [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0) - .NET 7 SDK.
-- [Spectre.Console](https://spectreconsole.net/) - a robust library to make beautiful console applications.
+- [Spectre.Console](https://spectreconsole.net/) - a robust library to help create beautiful console applications.
 - [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) - manages/binds configuration from `appsettings.json` to concrete types.
 - [xUnit.net](https://xunit.net/) - handles unit testing for the console application project.
 
@@ -21,7 +21,11 @@ This is a [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0) console app
 
 ### Building & running the project
 
-1. Build the console application project (`GhostConsole`) and tests project (`GhostConsole.Tests`) by running `dotnet build` in the `root` folder.
-   > Located in the root folder (where the `GhostConsole.sln` file is found). Alternatively, you can open the solution in VS/VSCode and execute build commands there.
-2. Run the console application by running `dotnet run` using `Windows Terminal`/`Powershell`/`Command Prompt` in the `./GhostConsole` folder (directory containing the `GhostConsole.csproj` file). The `.gif` is using `Windows Terminal`. Alternatively, you can open the application in VS/VSCode and run the project from there.
-3. Run the unit tests by running `dotnet test` in the `./GhostConsole.Tests` folder (directory containing the `GhostConsole.Tests.csproj` file). Alternatively, you can open the solution in VS/VSCode and right-click => `Run Tests` on the `GhostConsole.Tests` project.
+> `dotnet` commands can be issued via `Windows Terminal`, `Powershell`, `Command Prompt`, etc. - the GIF above is using `Windows Terminal`.
+
+1. <strong>Build the projects:</strong> run `dotnet build` in the `root` folder.
+   > Directory containing the `GhostConsole.sln` file. Alternatively, you can open the solution in VS/VSCode and execute build commands there.
+2. <strong>Run the console app:</strong> run `dotnet run` in the `./GhostConsole` folder.
+   > Directory containing the `GhostConsole.csproj` file. Alternatively, you can open the application in VS/VSCode and run the project from there.
+3. <strong>Run the unit tests:</strong> run `dotnet test` in the `./GhostConsole.Tests` folder.
+   > Directory containing the `GhostConsole.Tests.csproj` file. Alternatively, you can open the solution in VS/VSCode and right-click => `Run Tests` on the `GhostConsole.Tests` project.
