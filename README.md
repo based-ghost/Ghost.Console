@@ -8,9 +8,11 @@ This is a [.NET 7.0](https://dotnet.microsoft.com/download/dotnet/7.0) console a
 ## Tech stack
 
 - [.NET 7.0](https://dotnet.microsoft.com/download/dotnet/7.0) - .NET 7.0 SDK.
-- [Spectre.Console](https://spectreconsole.net/) - robust library to help create beautiful console applications.
-- [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) - manages/binds configuration from `appsettings.json` to concrete types.
-- [xUnit.net](https://xunit.net/) - handles unit testing for the console application project.
+- [Spectre.Console](https://spectreconsole.net/) - robust library that helps create beautiful console applications.
+- [xUnit.net](https://xunit.net/) - unit testing for the console application project.
+- [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting/) - manages hosting and startup infrastructure for the application.
+- [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) - binds configuration from `appsettings.json` to concrete types.
+- [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) - enables the HttpClient factory pattern for configuring/retrieving named HttpClients in a composable way.
 
 ## Building & running locally
 

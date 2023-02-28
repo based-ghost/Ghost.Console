@@ -6,4 +6,3 @@ global using System.Text.Json;
 global using GhostConsole.Models;
 global using GhostConsole.Service;
 global using GhostConsole.Extensions;
-global using static GhostConsole.ConsoleHelper;

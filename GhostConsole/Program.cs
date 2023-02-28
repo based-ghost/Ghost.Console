@@ -1,14 +1,34 @@
 ﻿// Set the console output encoding to UTF8 (needed to render Spectre.Console spinners)
 Console.OutputEncoding = Encoding.UTF8;
 
-// Init setup & info messages
-ConsoleHelper.WriteMainTitle();
+var builder = new HostBuilder()
+    .ConfigureServices((_, services) =>
+    {
+        services.AddHttpClient<IAlbumService, AlbumService>(c => c.BaseAddress = new Uri(ConsoleHelper.AlbumsBaseUri));
+        services.AddHttpClient<IPhotoService, PhotoService>(c => c.BaseAddress = new Uri(ConsoleHelper.PhotosBaseUri));
+    }).UseConsoleLifetime();
 
-// Check console supports interaction & user confirmed continue
-if (!ConsoleHelper.EnvironmentIsVerified)
-    return;
+var host = builder.Build();
 
-// Fetch unique albums & build selection list
-// Fetch photos for selected album and display as JsonText
-// TODO: Abstraction/refactoring for code in this method
-await ConsoleHelper.ExecuteAlbumAndPhotoPrompts();
+using (var serviceScope = host.Services.CreateScope())
+{
+    try
+    {
+        // Init setup & info messages
+        ConsoleHelper.WriteMainTitle();
+
+        // Check console supports interaction & user confirmed continue
+        if (!ConsoleHelper.EnvironmentIsVerified)
+            return Environment.ExitCode;
+
+        // Run console prompts that trigger API requests & display results
+        var services = serviceScope.ServiceProvider;
+        return await ConsoleHelper.RunAlbumAndPhotoPrompts(services);
+    }
+    catch (Exception ex)
+    {
+        ConsoleHelper.WriteError(ex.Message);
+    }
+}
+
+return Environment.ExitCode;

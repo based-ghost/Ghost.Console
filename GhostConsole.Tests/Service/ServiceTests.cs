@@ -8,17 +8,18 @@ public class ServiceTests
     public async Task Should_ReturnAlbums()
     {
         // Arrange
-        var mockAlbums = Enumerable.Range(1, 3).Select(i => new Album { Id = i, Title = $"Album title {i}" });
+        var mockAlbums = Enumerable.Range(1, 3).Select(i => new Album { Id = i, UserId = 1, Title = $"Album title {i}" });
         var mockHandler = GetMockHttpHandler(mockAlbums);
-        var baseAddress = new Uri($"{AppConfig.Api.BaseUri}/{AppConfig.Api.AlbumsUri}");
+        var baseAddress = new Uri(ConsoleHelper.AlbumsBaseUri);
         var mockHttpClient = new HttpClient(mockHandler.Object) { BaseAddress = baseAddress };
         var albumService = new AlbumService(mockHttpClient);
 
         /// Act
         var albums = await albumService.GetAllAsync();
 
-        /// Assert & Verify
-        AssertNotNullOrEmpty(albums);
+        /// Assert
+        Assert.NotNull(albums);
+        Assert.NotEmpty(albums);
         VerifyMockHttpRequest(mockHandler, baseAddress);
     }
 
@@ -30,29 +31,24 @@ public class ServiceTests
     public async Task Should_ReturnPhotos()
     {
         // Arrange
-        var mockPhotos = Enumerable.Range(1, 3).Select(i => new Photo { Id = i, Title = $"Photo title {i}" });
+        var mockPhotos = Enumerable.Range(1, 3).Select(i => new Photo { Id = i, AlbumId = 1, Title = $"Photo title {i}" });
         var mockHandler = GetMockHttpHandler(mockPhotos);
-        var baseAddress = new Uri($"{AppConfig.Api.BaseUri}/{AppConfig.Api.PhotosUri}");
+        var baseAddress = new Uri(ConsoleHelper.PhotosBaseUri);
         var mockHttpClient = new HttpClient(mockHandler.Object) { BaseAddress = baseAddress };
         var photoService = new PhotoService(mockHttpClient);
 
         /// Act
         var photos = await photoService.GetAllAsync();
 
-        /// Assert & Verify
-        AssertNotNullOrEmpty(photos);
+        /// Assert
+        Assert.NotNull(photos);
+        Assert.NotEmpty(photos);
         VerifyMockHttpRequest(mockHandler, baseAddress);
     }
 
     #endregion PhotoService Tests
 
-    #region Private Helper Methods
-
-    private static void AssertNotNullOrEmpty<T>(IEnumerable<T> results)
-    {
-        Assert.NotNull(results);
-        Assert.NotEmpty(results);
-    }
+    #region Private Methods
 
     private static Mock<HttpMessageHandler> GetMockHttpHandler<T>(T response)
     {
@@ -85,5 +81,5 @@ public class ServiceTests
                 ItExpr.IsAny<CancellationToken>());
     }
 
-    #endregion Private Helper Methods
+    #endregion Private Methods
 }

@@ -2,8 +2,9 @@
 
 public class Album : IAlbum
 {
-    public int    Id    { get; set; }
-    public string Title { get; set; } = null!;
+    public int    Id     { get; set; }
+    public int    UserId { get; set; }
+    public string Title  { get; set; } = null!;
 
-    public string DisplayTitle => $"{Id} - {Title.Truncate(25)}";
+    public string DisplayTitle() => $"{Id} - {Title.Truncate(25)}";
 }

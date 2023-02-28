@@ -7,4 +7,6 @@ global using GhostConsole.Service;
 global using System.Net.Http.Json;
 global using Spectre.Console.Json;
 global using GhostConsole.Extensions;
+global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
