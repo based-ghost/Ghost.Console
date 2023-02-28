@@ -33,7 +33,7 @@ public static class ConsoleHelper
             .StartAsync("[grey66]Fetching albums..[/]", async _ =>
             {
                 await Task.Delay(3500);
-                return await albumService.GetAllAsync();
+                return await albumService.GetAllAlbumsAsync();
             });
 
         if (albums.IsNullOrEmpty())
@@ -54,7 +54,7 @@ public static class ConsoleHelper
             {
                 await Task.Delay(3500);
                 var albumId = selectedAlbum.Split("-")[0].ExtractDigits();
-                return await photoService.GetFromAlbumAsync(albumId);
+                return await photoService.GetPhotosByAlbumIdAsync(albumId);
             });
 
         // Write the selected album's photos JSON and wrap up console process.

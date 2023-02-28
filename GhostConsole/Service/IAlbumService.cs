@@ -2,5 +2,5 @@
 
 public interface IAlbumService
 {
-    public Task<IEnumerable<IAlbum>> GetAllAsync();
+    public Task<IEnumerable<IAlbum>> GetAllAlbumsAsync();
 }

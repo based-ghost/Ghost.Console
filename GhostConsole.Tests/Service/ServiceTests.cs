@@ -2,20 +2,30 @@
 
 public class ServiceTests
 {
-    #region AlbumService Tests
+    #region Fields
+
+    /// <summary>
+    /// HttpClient method to mock.
+    /// Signature: <see cref="SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)" />.
+    /// </summary>
+    private const string _sendAsyncMethod = "SendAsync";
+
+    #endregion Fields
+
+    #region Album Service Tests
 
     [Fact]
-    public async Task Should_ReturnAlbums()
+    public async Task Should_Return_Albums()
     {
         // Arrange
         var mockAlbums = Enumerable.Range(1, 3).Select(i => new Album { Id = i, UserId = 1, Title = $"Album title {i}" });
-        var mockHandler = GetMockHttpHandler(mockAlbums);
+        var mockHandler = GetMockHttpMsgHandler(mockAlbums);
         var baseAddress = new Uri(ConsoleHelper.AlbumsBaseUri);
         var mockHttpClient = new HttpClient(mockHandler.Object) { BaseAddress = baseAddress };
         var albumService = new AlbumService(mockHttpClient);
 
         /// Act
-        var albums = await albumService.GetAllAsync();
+        var albums = await albumService.GetAllAlbumsAsync();
 
         /// Assert
         Assert.NotNull(albums);
@@ -25,20 +35,20 @@ public class ServiceTests
 
     #endregion AlbumService Tests
 
-    #region PhotoService Tests
+    #region Photo Service Tests
 
     [Fact]
-    public async Task Should_ReturnPhotos()
+    public async Task Should_Return_Photos()
     {
         // Arrange
         var mockPhotos = Enumerable.Range(1, 3).Select(i => new Photo { Id = i, AlbumId = 1, Title = $"Photo title {i}" });
-        var mockHandler = GetMockHttpHandler(mockPhotos);
+        var mockHandler = GetMockHttpMsgHandler(mockPhotos);
         var baseAddress = new Uri(ConsoleHelper.PhotosBaseUri);
         var mockHttpClient = new HttpClient(mockHandler.Object) { BaseAddress = baseAddress };
         var photoService = new PhotoService(mockHttpClient);
 
         /// Act
-        var photos = await photoService.GetAllAsync();
+        var photos = await photoService.GetAllPhotosAsync();
 
         /// Assert
         Assert.NotNull(photos);
@@ -46,11 +56,11 @@ public class ServiceTests
         VerifyMockHttpRequest(mockHandler, baseAddress);
     }
 
-    #endregion PhotoService Tests
+    #endregion Photo Service Tests
 
-    #region Private Methods
+    #region Private Helpers
 
-    private static Mock<HttpMessageHandler> GetMockHttpHandler<T>(T response)
+    private static Mock<HttpMessageHandler> GetMockHttpMsgHandler<T>(T response)
     {
         var mockHandler = new Mock<HttpMessageHandler>();
         var mockResponse = new HttpResponseMessage()
@@ -62,7 +72,7 @@ public class ServiceTests
         mockHandler
             .Protected()
             .Setup<Task<HttpResponseMessage>>(
-                "SendAsync",
+                _sendAsyncMethod,
                 ItExpr.IsAny<HttpRequestMessage>(),
                 ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync(mockResponse);
@@ -75,11 +85,11 @@ public class ServiceTests
         mockHandler
             .Protected()
             .Verify(
-                "SendAsync",
+                _sendAsyncMethod,
                 Times.Exactly(1),
-                ItExpr.Is<HttpRequestMessage>(req => req.Method == HttpMethod.Get && req.RequestUri == uri),
+                ItExpr.Is<HttpRequestMessage>(r => r.Method == HttpMethod.Get && r.RequestUri == uri),
                 ItExpr.IsAny<CancellationToken>());
     }
 
-    #endregion Private Methods
+    #endregion Private Helpers
 }
